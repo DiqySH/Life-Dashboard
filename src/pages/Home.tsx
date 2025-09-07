@@ -1,16 +1,32 @@
 import { PageSection, PageContent } from "@/components/ui/pageSection";
-import { TypographyBlockquote, TypographyH1, TypographyH2, TypographyInlineCode } from "@/components/ui/typography";
+import {
+  TypographyH1,
+} from "@/components/ui/typography";
+import { useUsername } from "@/hooks/use-avatar-and-username";
 
 const Home = () => {
+  const { username } = useUsername();
+  const getGreeting = (username: string): string => {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 5 && hour < 12) {
+      return `Good morning 🌅 ${username}!`;
+    } else if (hour >= 12 && hour < 17) {
+      return `Good afternoon ☀️ ${username}!`;
+    } else if (hour >= 17 && hour < 21) {
+      return `Good evening 🌇 ${username}!`;
+    } else {
+      return `Good night 🌙 ${username}!`;
+    }
+  };
   return (
     <PageSection pageName="Home">
       <PageContent>
         <div className="flex flex-col">
-          <TypographyH1 className="mt-10 w-fit">Taxing Laughter: The Joke Tax Chronicles</TypographyH1>
-          <TypographyH2>Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne. One day, his advisors came to him with a problem: the kingdom was running out of money.</TypographyH2>
-          <TypographyInlineCode>anjay</TypographyInlineCode>
-          <TypographyBlockquote>&quot;After all,&quot; he said, &quot;everyone enjoys a good joke, so
-      it&apos;s only fair that they should pay for the privilege.&quot;</TypographyBlockquote>
+          <TypographyH1 className="w-fit">
+            {getGreeting(username)}
+          </TypographyH1>
         </div>
       </PageContent>
     </PageSection>
