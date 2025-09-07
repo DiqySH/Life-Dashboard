@@ -13,7 +13,7 @@ import FilePondPluginFileEncode from "filepond-plugin-file-encode";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css";
 import "@pqina/pintura/pintura.css";
-import { FilePondFile } from "filepond"
+import { FilePondFile } from "filepond";
 
 import { openEditor } from "@pqina/pintura";
 
@@ -29,19 +29,20 @@ registerPlugin(
 );
 
 const ProfilePictureChanger = () => {
-  const [file, setFile] = useState<FilePondFile[]>([]);  
-  const [image, setImage] = useState<string | null>(null)
+  const [file, setFile] = useState<FilePondFile[]>([]);
+  const [image, setImage] = useState<string | null>(null);
   const handleClick = () => {
     if (file.length > 0) {
-      const base64 = file[0].getFileEncodeBase64String()
-      const mimeType = file[0].file.type
-      setImage(`data:${mimeType};base64,${base64}`)
+      const base64 = file[0].getFileEncodeBase64String();
+      const mimeType = file[0].file.type;
+      setImage(`data:${mimeType};base64,${base64}`);
     }
   };
   return (
     <div className="max-w-[200px]">
       <FilePond
-        files={file}
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
+        files={file as any}
         onupdatefiles={setFile}
         allowMultiple={false}
         maxFiles={1}
