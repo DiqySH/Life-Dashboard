@@ -1,5 +1,5 @@
 import { FilePond, registerPlugin } from "react-filepond";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -13,6 +13,7 @@ import FilePondPluginFileEncode from "filepond-plugin-file-encode";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css";
 import "@pqina/pintura/pintura.css";
+import { FilePondFile } from "filepond"
 
 import { openEditor } from "@pqina/pintura";
 
@@ -28,7 +29,7 @@ registerPlugin(
 );
 
 const ProfilePictureChanger = () => {
-  const [file, setFile] = useState<unknown[] | any[]>([]);  
+  const [file, setFile] = useState<FilePondFile[]>([]);  
   const [image, setImage] = useState<string | null>(null)
   const handleClick = () => {
     if (file.length > 0) {
