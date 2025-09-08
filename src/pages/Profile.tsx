@@ -17,10 +17,6 @@ import { Label } from "@/components/ui/label";
 import { useEffect } from "react";
 import useCreateValue from "@/hooks/useCreateValue";
 
-interface AvatarError {
-  message: string;
-}
-
 interface FormData {
   username: string;
   avatar: string | null;
@@ -28,18 +24,17 @@ interface FormData {
 
 const Profile = () => {
   const { username } = useUsername();
-  const [avatarError, setAvatarError] = useState<AvatarError | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const create = useCreateValue();
   const user = useUser();
   const { email, uid } = user;
 
   const onSubmit = async (data: FormData) => {
     if (!data.avatar) {
-      setAvatarError({ message: "Avatar ga boleh kosong" });
+      return
     } else {
-      setAvatarError(null);
       console.log(data);
-
+      setLoading(true);
       try {
         await create.setValue(`users/${uid}/profile`, {
           avatar: data.avatar,
@@ -48,6 +43,9 @@ const Profile = () => {
       } catch (error) {
         console.log(error);
       }
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   };
 
@@ -105,8 +103,6 @@ const Profile = () => {
                     </>
                   )}
                 />
-
-                <ErrorText>{avatarError ? avatarError.message : ""}</ErrorText>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="username">Username</Label>
@@ -151,8 +147,12 @@ const Profile = () => {
                   className="!border-none"
                 />
               </div>
-              <Button type="submit" className="text-white">
-                Simpan Perubahan
+              <Button
+                type="submit"
+                className="text-white w-full mt-1"
+                disabled={loading}
+              >
+                {loading ? "Loading" : "Simpan Perubahan"}
               </Button>
             </form>
           </CardContent>
