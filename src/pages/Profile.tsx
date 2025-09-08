@@ -155,7 +155,7 @@ const Profile = () => {
                 <Card>
                   <CardDescription>
                     <CardContent className="flex items-center gap-4 justify-between">
-                      <CardTitle className="text-white">
+                      <CardTitle className="text-black dark:text-white">
                         Mungkin ada perubahan
                       </CardTitle>
                       <Button type="submit" className="text-white">
