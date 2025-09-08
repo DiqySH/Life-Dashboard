@@ -10,11 +10,11 @@ const Home = () => {
     const now = new Date();
     const hour = now.getHours();
 
-    if (hour >= 5 && hour < 12) {
+    if (hour >= 5 && hour < 10) {
       return `Good morning 🌅 ${username}!`;
-    } else if (hour >= 12 && hour < 17) {
+    } else if (hour >= 10 && hour < 16) {
       return `Good afternoon ☀️ ${username}!`;
-    } else if (hour >= 17 && hour < 21) {
+    } else if (hour >= 16 && hour < 19) {
       return `Good evening 🌇 ${username}!`;
     } else {
       return `Good night 🌙 ${username}!`;

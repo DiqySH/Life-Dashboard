@@ -59,9 +59,13 @@ function LoginCard() {
       >
         <CardHeader>
           <CardTitle>Login Dulu Wak</CardTitle>
-          <CardDescription>Masukin email dan password di bawah untuk login</CardDescription>
+          <CardDescription>
+            Masukin email dan password di bawah untuk login
+          </CardDescription>
           <CardAction>
-            <Button variant="link"><Link to={"/signup"}>Sign Up</Link></Button>
+            <Button variant="link" disabled={false}>
+              <Link to={"/signup"}>Sign Up</Link>
+            </Button>
           </CardAction>
         </CardHeader>{" "}
         <CardContent>
@@ -72,6 +76,7 @@ function LoginCard() {
                 id="email"
                 type="text"
                 placeholder="ahmad@sahroni.com"
+                disabled={false}
                 {...register("email", {
                   required: "Isi dulu emailnya.",
                   pattern: {
@@ -96,19 +101,25 @@ function LoginCard() {
               <Input
                 id="password"
                 type="password"
+                disabled={false}
                 placeholder="ironmandiambil123"
-                {...register("password", { required: "Passwordnya diisi juga dong.", minLength: {
-                  value: 6,
-                  message: "Password minimal 6 huruf"
-                } })}
+                {...register("password", {
+                  required: "Passwordnya diisi juga dong.",
+                  minLength: {
+                    value: 6,
+                    message: "Password minimal 6 huruf",
+                  },
+                })}
                 autoComplete="current-password"
               />
-              <ErrorText>{errors.password ? errors.password.message : ""}</ErrorText>
+              <ErrorText>
+                {errors.password ? errors.password.message : ""}
+              </ErrorText>
             </div>
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full text-white">
+          <Button type="submit" className="w-full text-white" disabled={false}>
             Masuk
           </Button>
           <Button
@@ -116,6 +127,7 @@ function LoginCard() {
             className="w-full"
             type="button"
             onClick={() => SignInWithGoogle()}
+            disabled={false}
           >
             Login dengan google
           </Button>

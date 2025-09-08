@@ -4,9 +4,11 @@ import { Separator } from "./separator";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbPage } from "./breadcrumb";
 import { TypographySmall } from "./typography";
 import ThemeButton from "./ThemeButton";
+import { cn } from "../../../lib/utils";
 
 interface PageContentProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface PageSectionProps {
@@ -40,9 +42,9 @@ const PageSection = ({ children, pageName }: PageSectionProps) => {
   );
 };
 
-const PageContent = ({ children }: PageContentProps) => {
+const PageContent = ({ children, className }: PageContentProps) => {
   return (
-    <section className="max-w-[1200px] w-full md:px-0 px-3 md:mx-3 mx-0 pt-10">
+    <section className={cn("max-w-[1200px] w-full md:px-0 px-3 md:mx-3 mx-0 pt-10", className)}>
       {children}
     </section>
   );

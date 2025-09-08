@@ -79,6 +79,7 @@ function SignupCard() {
               <Input
                 id="email"
                 type="text"
+                disabled={false}
                 placeholder="ahmad@sahroni.com"
                 {...register("email", {
                   required: "Isi dulu emailnya",
@@ -92,12 +93,11 @@ function SignupCard() {
               <ErrorText>{errors.email ? errors.email.message : ""}</ErrorText>
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Sandi</Label>
-              </div>
+              <Label htmlFor="password">Sandi</Label>
               <Input
                 id="password"
                 type="password"
+                disabled={false}
                 placeholder="ironmandiambil123"
                 {...register("password", {
                   required: "Passwordnya diisi juga dong",
@@ -113,12 +113,11 @@ function SignupCard() {
               </ErrorText>
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="confirmPassword">Konformasi sandi</Label>
-              </div>
+              <Label htmlFor="confirmPassword">Konformasi sandi</Label>
               <Input
                 id="confirmPassword"
                 type="password"
+                disabled={false}
                 placeholder="ironmandiambil123"
                 {...register("confirmPassword", {
                   required: "Password tidak sama",
@@ -134,7 +133,7 @@ function SignupCard() {
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full text-white">
+          <Button type="submit" className="w-full text-white" disabled={false}>
             Buat akun
           </Button>
         </CardFooter>
