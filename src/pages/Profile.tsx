@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,8 +14,8 @@ import { useUsername } from "@/hooks/use-avatar-and-username";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
 import { useEffect } from "react";
+import useCreateValue from "@/hooks/useCreateValue";
 
 interface AvatarError {
   message: string;
@@ -30,17 +29,25 @@ interface FormData {
 const Profile = () => {
   const { username } = useUsername();
   const [avatarError, setAvatarError] = useState<AvatarError | null>(null);
-  const [saveChangeTrigger, setSaveChangeTrigger] = useState<boolean>(false);
+  const create = useCreateValue();
   const user = useUser();
   const { email, uid } = user;
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     if (!data.avatar) {
       setAvatarError({ message: "Avatar ga boleh kosong" });
     } else {
       setAvatarError(null);
       console.log(data);
-      setSaveChangeTrigger(false);
+
+      try {
+        await create.setValue(`users/${uid}/profile`, {
+          avatar: data.avatar,
+          username: data.username,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -92,7 +99,6 @@ const Profile = () => {
                           } else {
                             field.onChange(null);
                           }
-                          setSaveChangeTrigger(true);
                         }}
                       />
                       <ErrorText>{errors.avatar?.message}</ErrorText>
@@ -112,10 +118,10 @@ const Profile = () => {
                     <Input
                       {...field}
                       placeholder="Username"
+                      id="username"
                       className="!border-none"
                       onChange={(e) => {
                         field.onChange(e); // untuk react-hook-form
-                        setSaveChangeTrigger(true);
                       }}
                     />
                   )}
@@ -145,26 +151,9 @@ const Profile = () => {
                   className="!border-none"
                 />
               </div>
-              <motion.div
-                className="fixed bottom-3 right-3 max-w-[450px] w-full"
-                animate={{
-                  x: saveChangeTrigger ? "0%" : "150%",
-                  opacity: saveChangeTrigger ? 1 : 0,
-                }}
-              >
-                <Card>
-                  <CardDescription>
-                    <CardContent className="flex items-center gap-4 justify-between">
-                      <CardTitle className="text-black dark:text-white">
-                        Mungkin ada perubahan
-                      </CardTitle>
-                      <Button type="submit" className="text-white">
-                        Simpan Perubahan
-                      </Button>
-                    </CardContent>
-                  </CardDescription>
-                </Card>
-              </motion.div>
+              <Button type="submit" className="text-white">
+                Simpan Perubahan
+              </Button>
             </form>
           </CardContent>
         </Card>
